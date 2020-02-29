@@ -18,7 +18,8 @@ namespace LAB_2___ABB.Helpers
                 return _instance;
             }
         }
-        public NoLinealStructures.Structures.Tree<DrugModel> DrugTree = new NoLinealStructures.Structures.Tree<DrugModel>();
+        public NoLinealStructures.Structures.Tree<DrugModel> drugTree = new NoLinealStructures.Structures.Tree<DrugModel>();
+        public List<DrugOrderModel> drugList = new List<DrugOrderModel>();
 
     }
 }

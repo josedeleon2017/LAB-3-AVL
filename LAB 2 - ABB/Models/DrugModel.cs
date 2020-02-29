@@ -14,7 +14,7 @@ namespace LAB_2___ABB.Models
         //INSERT TREE
         public static void Add(DrugModel drug)
         {
-            Storage.Instance.DrugTree.Insert(drug, NameComparison);
+            Storage.Instance.drugTree.Insert(drug, NameComparison);
         }
 
         //DELEGATES

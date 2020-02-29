@@ -15,9 +15,31 @@ namespace NoLinealStructures.Structures
             throw new NotImplementedException();
         }
 
-        public int Find(T value, Delegate comparer, Delegate converter)
+        public int Find(T value, Delegate comparer)
         {
-            throw new NotImplementedException();
+            return Find(Root, value, comparer);
+        }
+
+        private int Find(Node<T> nodeF, T value, Delegate comparer)
+        {
+            Node<T> node = new Node<T>(value);
+
+            if (nodeF == null)
+            {
+                return 0;
+            }
+            else if ((int)comparer.DynamicInvoke(nodeF.Value, node.Value) == 0)
+            {
+                return 0;//Convertir tipo T a tipo int con delegados node.Value;
+            }
+            else if ((int)comparer.DynamicInvoke(nodeF.Value, node.Value) == 1)
+            {
+                return Find(nodeF.Left, value, comparer);
+            }
+            else
+            {
+                return Find(nodeF.Right, value, comparer);
+            }
         }
 
         public void Insert(T value, Delegate del)

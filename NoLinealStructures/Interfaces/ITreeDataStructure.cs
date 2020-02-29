@@ -9,7 +9,7 @@ namespace NoLinealStructures.Interfaces
     interface ITreeDataStructure<T>
     {
         void Insert(T value, Delegate comparer);
-        int Find(T value, Delegate comparer, Delegate converter);
+        int Find(T value, Delegate comparer);
         void Delete(T value);
 
     }

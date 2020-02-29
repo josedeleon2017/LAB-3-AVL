@@ -107,26 +107,25 @@ namespace LAB_2___ABB.Controllers
                 }
                 FilePath = Path + System.IO.Path.GetFileName(postedfile.FileName);
                 postedfile.SaveAs(FilePath);
-                string csvData = System.IO.File.ReadAllText(FilePath);
-                foreach (string row in csvData.Split('\n'))
+
+                using (var fileStream = new FileStream(FilePath, FileMode.Open))
                 {
-                    if (!string.IsNullOrEmpty(row))
+                    using (var streamReader = new StreamReader(fileStream))
                     {
-                        try
+                        while (!streamReader.EndOfStream)
                         {
+                            var row = streamReader.ReadLine(); 
+                            var content = row.Split(',');
                             var drug = new DrugModel
                             {
-                                Id = Convert.ToInt32(row.Split(',')[0]),
-                                Name = row.Split(',')[1],
+                                Id = Convert.ToInt32(content[0]),
+                                Name = content[1],
                             };
-                            //SAVE MEDICINE ON THE TREE
                             DrugModel.Add(drug);
-                        }
-                        catch
-                        {
                         }
                     }
                 }
+
             }
             return RedirectToAction("Index");
         }

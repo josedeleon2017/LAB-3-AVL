@@ -17,6 +17,14 @@ namespace LAB_2___ABB.Models
             Storage.Instance.drugTree.Insert(drug, NameComparison);
         }
 
+        //SEARCH TREE
+        public static int Search(string drugName)
+        {
+            DrugModel drugToSearch = new DrugModel();
+            drugToSearch.Name = drugName;
+           return Storage.Instance.drugTree.Find(drugToSearch, NameComparison);
+        }
+
         //DELEGATES
         public static Comparison<DrugModel> NameComparison = delegate (DrugModel drug1, DrugModel drug2)
         {

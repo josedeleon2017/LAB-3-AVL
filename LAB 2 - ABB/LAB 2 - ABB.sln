@@ -5,6 +5,8 @@ VisualStudioVersion = 16.0.29709.97
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LAB 2 - ABB", "LAB 2 - ABB.csproj", "{72059401-D138-4485-A7D3-EFF7A8523703}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NoLinealStructures", "..\NoLinealStructures\NoLinealStructures.csproj", "{5CF84798-2924-4969-993A-62CCCDB98DEA}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{72059401-D138-4485-A7D3-EFF7A8523703}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{72059401-D138-4485-A7D3-EFF7A8523703}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{72059401-D138-4485-A7D3-EFF7A8523703}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5CF84798-2924-4969-993A-62CCCDB98DEA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5CF84798-2924-4969-993A-62CCCDB98DEA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5CF84798-2924-4969-993A-62CCCDB98DEA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5CF84798-2924-4969-993A-62CCCDB98DEA}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

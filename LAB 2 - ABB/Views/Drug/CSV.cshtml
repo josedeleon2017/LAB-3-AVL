@@ -1,0 +1,24 @@
+﻿@model LAB_2___ABB.Models.DrugModel
+
+@{
+    ViewBag.Title = "CSV";
+}
+
+<h2>CSV</h2>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>CSV</title>
+</head>
+<body>
+    <div class="form-horizontal">
+        @using (Html.BeginForm("CSV", "Drug", FormMethod.Post, new { enctype = "multipart/form-data" }))
+        {
+            <input type="file" name="postedFile" />
+            <input type="submit" name="Import" />
+        }
+
+    </div>
+</body>
+@Html.ActionLink("Back to List", "Index")
+</html>

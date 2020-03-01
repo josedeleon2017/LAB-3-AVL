@@ -26,6 +26,21 @@ namespace LAB_2___ABB.Controllers
             return View(Storage.Instance.drugOrderList);
         }
 
+        // GET: DrugOrder
+        public ActionResult SupplyStock()
+        {
+            for(int i=0; i<Storage.Instance.drugList.Count; i++)
+            {               
+                if (Storage.Instance.drugList.ElementAt(i).Stock != 0)
+                { 
+                    Random random = new Random();
+                    int number = random.Next(1, 15);
+                    Storage.Instance.drugList.ElementAt(i).Stock = number;
+                }
+            }      
+            return View(Storage.Instance.drugList);
+        }
+
         // GET: DrugOrder/Details/5
         public ActionResult Details(int id)
         {

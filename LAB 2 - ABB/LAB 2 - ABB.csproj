@@ -170,6 +170,7 @@
     <Content Include="Views\Drug\CSV.cshtml" />
     <Content Include="Views\DrugOrder\CSV.cshtml" />
     <Content Include="Views\DrugOrder\Index.cshtml" />
+    <Content Include="Views\DrugOrder\SupplyStock.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

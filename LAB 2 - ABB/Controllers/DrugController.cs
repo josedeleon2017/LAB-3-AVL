@@ -12,7 +12,7 @@ namespace LAB_2___ABB.Controllers
     {
         // GET: Drug
         public ActionResult Index()
-        {
+        {          
             return View();
         }
 
@@ -127,8 +127,7 @@ namespace LAB_2___ABB.Controllers
                 }
 
             }
-            DrugModel.Search("AAA");
-            return RedirectToAction("Index");
+            return View();
         }
     }
 }

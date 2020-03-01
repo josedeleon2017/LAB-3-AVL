@@ -20,6 +20,7 @@ namespace LAB_2___ABB.Helpers
         }
         public NoLinealStructures.Structures.Tree<DrugModel> drugTree = new NoLinealStructures.Structures.Tree<DrugModel>();
         public List<DrugOrderModel> drugList = new List<DrugOrderModel>();
+        public List<DrugOrderModel> drugOrderList = new List<DrugOrderModel>();
 
     }
 }

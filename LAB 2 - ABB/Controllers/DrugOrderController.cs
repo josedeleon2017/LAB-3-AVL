@@ -15,7 +15,15 @@ namespace LAB_2___ABB.Controllers
         // GET: DrugOrder
         public ActionResult Index()
         {
-            return View(Storage.Instance.drugList);
+            return View(Storage.Instance.drugOrderList);
+        }
+
+        [HttpPost]
+        public ActionResult Index(FormCollection collection)
+        {
+            var drugName = collection["search"];
+            Storage.Instance.drugOrderList.Add(Storage.Instance.drugList.ElementAt(DrugModel.Search(drugName)-1));
+            return View(Storage.Instance.drugOrderList);
         }
 
         // GET: DrugOrder/Details/5
@@ -118,7 +126,7 @@ namespace LAB_2___ABB.Controllers
                         {
                             Regex regx = new Regex("," + "(?=(?:[^\"]*\"[^\"]*\")*(?![^\"]*\"))");
                             string price = Convert.ToString(regx.Split(row)[4]);
-                            price = price.Substring(1, price.Length-1);
+                            price = price.Substring(0, price.Length-1);
                             var drug = new DrugOrderModel
                             {
                                 Id = Convert.ToInt32(regx.Split(row)[0]),

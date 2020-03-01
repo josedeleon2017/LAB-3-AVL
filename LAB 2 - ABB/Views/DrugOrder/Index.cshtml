@@ -6,11 +6,17 @@
 
 <h2>Index</h2>
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
+@using (Html.BeginForm())
+{
+    <div class="row">
+        <input type="text" class="form-control" name="search" value="" placeholder="Find by name" />
+        <button type="submit">Search</button>
+    </div>
+}
+
+<br />
 <table class="table">
-    <tr>       
+    <tr>
         <th>
             @Html.DisplayNameFor(model => model.DrugName)
         </th>
@@ -29,24 +35,25 @@
         <th></th>
     </tr>
 
-@foreach (var item in Model) {
-    <tr>     
-        <td>
-            @Html.DisplayFor(modelItem => item.DrugName)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Description)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Producer)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Price)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Stock)
-        </td>       
-    </tr>
-}
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.DrugName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Description)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Producer)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Price)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Stock)
+            </td>
+        </tr>
+    }
 
 </table>

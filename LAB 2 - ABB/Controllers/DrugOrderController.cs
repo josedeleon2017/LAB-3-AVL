@@ -128,7 +128,7 @@ namespace LAB_2___ABB.Controllers
                                 Price = Convert.ToDouble(price),
                                 Stock = Convert.ToInt32(regx.Split(row)[5]),
                             };
-                            //SAVE MEDICINE ON THE TREE
+                            //SAVE MEDICINE ON THE LIST
                             Storage.Instance.drugList.Add(drug);                                                    
                         }
                         catch

@@ -14,15 +14,20 @@ namespace LAB_2___ABB.Models
         //INSERT TREE
         public static void Add(DrugModel drug)
         {
-            Storage.Instance.drugTree.Insert(drug, NameComparison);
+            Storage.Instance.drugTree.Comparer = NameComparison;
+            Storage.Instance.drugTree.Converter = IdConverter;
+            Storage.Instance.drugTree.Insert(drug);
         }
 
-        //SEARCH TREE
+        //SEARCH TREE               
         public static int Search(string drugName)
         {
             DrugModel drugToSearch = new DrugModel();
             drugToSearch.Name = drugName;
-           return Storage.Instance.drugTree.Find(drugToSearch, NameComparison);
+
+            Storage.Instance.drugTree.Comparer = NameComparison;
+            Storage.Instance.drugTree.Converter = IdConverter;
+            return Storage.Instance.drugTree.Find(drugToSearch);
         }
 
         //DELEGATES
@@ -30,5 +35,10 @@ namespace LAB_2___ABB.Models
         {
             return drug1.Name.CompareTo(drug2.Name);
         };
+
+        public static Converter<DrugModel,Int32> IdConverter = delegate (DrugModel drug) {
+            return drug.Id;
+        };
+
     }
 }

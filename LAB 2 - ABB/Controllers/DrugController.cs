@@ -99,7 +99,7 @@ namespace LAB_2___ABB.Controllers
         {
             string FilePath;
             if (postedfile != null)
-            {
+            {               
                 string Path = Server.MapPath("~/Data/");
                 if (!Directory.Exists(Path))
                 {
@@ -127,6 +127,7 @@ namespace LAB_2___ABB.Controllers
                 }
 
             }
+            DrugModel.Search("AAA");
             return RedirectToAction("Index");
         }
     }

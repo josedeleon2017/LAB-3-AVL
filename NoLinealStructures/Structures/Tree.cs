@@ -9,18 +9,21 @@ namespace NoLinealStructures.Structures
     public class Tree<T> : Interfaces.ITreeDataStructure<T>
     {
         static Node<T> Root { get; set; }
-        static int Count;
+        public static int Count;
+        public Delegate Comparer;
+        public Delegate Converter;
+
         public void Delete(T value)
         {
             throw new NotImplementedException();
         }
 
-        public int Find(T value, Delegate comparer)
+        public int Find(T value)
         {
-            return Find(Root, value, comparer);
+            return Find(Root, value);
         }
 
-        private int Find(Node<T> nodeF, T value, Delegate comparer)
+        private int Find(Node<T> nodeF, T value)
         {
             Node<T> node = new Node<T>(value);
 
@@ -28,21 +31,22 @@ namespace NoLinealStructures.Structures
             {
                 return 0;
             }
-            else if ((int)comparer.DynamicInvoke(nodeF.Value, node.Value) == 0)
+            else if ((int)Comparer.DynamicInvoke(nodeF.Value, node.Value) == 0)
             {
-                return 0;//Convertir tipo T a tipo int con delegados node.Value;
+                node.Value = nodeF.Value;
+                return (int)Converter.DynamicInvoke(node.Value);                                     
             }
-            else if ((int)comparer.DynamicInvoke(nodeF.Value, node.Value) == 1)
+            else if ((int)Comparer.DynamicInvoke(nodeF.Value, node.Value) == 1)
             {
-                return Find(nodeF.Left, value, comparer);
+                return Find(nodeF.Left, value);
             }
             else
             {
-                return Find(nodeF.Right, value, comparer);
+                return Find(nodeF.Right, value);
             }
         }
 
-        public void Insert(T value, Delegate del)
+        public void Insert(T value)
         {
             Node<T> node = new Node<T>(value);
 
@@ -53,12 +57,12 @@ namespace NoLinealStructures.Structures
             }
             else
             {
-                Insert(Root, node, del);
+                Insert(Root, node);
             }
         }
-        private void Insert(Node<T> nodeF, Node<T> node, Delegate comparer)
+        private void Insert(Node<T> nodeF, Node<T> node)
         {
-            if ((int)comparer.DynamicInvoke(nodeF.Value, node.Value) == 1)
+            if ((int)Comparer.DynamicInvoke(nodeF.Value, node.Value) == 1)
             {
                 if (nodeF.Left == null)
                 {
@@ -68,7 +72,7 @@ namespace NoLinealStructures.Structures
                 }
                 else
                 {
-                    Insert(nodeF.Left, node, comparer);
+                    Insert(nodeF.Left, node);
                 }
             }
             else
@@ -81,10 +85,11 @@ namespace NoLinealStructures.Structures
                 }
                 else
                 {
-                    Insert(nodeF.Right, node, comparer);
+                    Insert(nodeF.Right, node);
                 }
             }
         }
 
+       
     }
 }

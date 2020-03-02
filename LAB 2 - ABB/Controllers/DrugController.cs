@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.Mvc;
 using LAB_2___ABB.Models;
 using System.IO;
+using System.Text.RegularExpressions;
 
 namespace LAB_2___ABB.Controllers
 {
@@ -115,11 +116,14 @@ namespace LAB_2___ABB.Controllers
                         while (!streamReader.EndOfStream)
                         {
                             var row = streamReader.ReadLine(); 
-                            var content = row.Split(',');
+
+                            Regex regx = new Regex("," + "(?=(?:[^\"]*\"[^\"]*\")*(?![^\"]*\"))");
+                            string[] line = regx.Split(row);
+
                             var drug = new DrugModel
                             {
-                                Id = Convert.ToInt32(content[0]),
-                                Name = content[1],
+                                Id = Convert.ToInt32(line[0]),
+                                Name = line[1],
                             };
                             DrugModel.Add(drug);
                         }

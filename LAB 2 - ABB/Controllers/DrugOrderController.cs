@@ -140,14 +140,17 @@ namespace LAB_2___ABB.Controllers
                         try
                         {
                             Regex regx = new Regex("," + "(?=(?:[^\"]*\"[^\"]*\")*(?![^\"]*\"))");
+                            string[] line = regx.Split(row);  
+                            
                             string price = Convert.ToString(regx.Split(row)[4]);
-                            price = price.Substring(0, price.Length-1);
+                            price = price.Substring(1, price.Length-1);
+
                             var drug = new DrugOrderModel
                             {
                                 Id = Convert.ToInt32(regx.Split(row)[0]),
-                                DrugName = regx.Split(row)[1],
-                                Description = regx.Split(row)[2],
-                                Producer = regx.Split(row)[3],
+                                DrugName = line[1],
+                                Description = line[2],
+                                Producer = line[3],
                                 Price = Convert.ToDouble(price),
                                 Stock = Convert.ToInt32(regx.Split(row)[5]),
                             };

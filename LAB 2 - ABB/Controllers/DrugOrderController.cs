@@ -15,6 +15,7 @@ namespace LAB_2___ABB.Controllers
         // GET: DrugOrder
         public ActionResult Index()
         {
+            Storage.Instance.drugOrderList.Clear();
             return View(Storage.Instance.drugOrderList);
         }
 
@@ -22,7 +23,12 @@ namespace LAB_2___ABB.Controllers
         public ActionResult Index(FormCollection collection)
         {
             var drugName = collection["search"];
-            Storage.Instance.drugOrderList.Add(Storage.Instance.drugList.ElementAt(DrugModel.Search(drugName)-1));
+
+            Storage.Instance.drugOrderList.Clear();
+
+            int drugPosition = DrugModel.Search(drugName) - 1;
+            DrugOrderModel drugFound = Storage.Instance.drugList.ElementAt(drugPosition);
+            Storage.Instance.drugOrderList.Add(drugFound);
             return View(Storage.Instance.drugOrderList);
         }
 
@@ -164,6 +170,51 @@ namespace LAB_2___ABB.Controllers
                 }
             }
             return RedirectToAction("Index");
+        }
+
+        // GET: DrugOrder/Add/5
+        public ActionResult Add(int id)
+        {
+            DrugOrderModel drugToAdd = Storage.Instance.drugList.ElementAt(id-1);
+
+            return View(drugToAdd);
+        }
+
+        //GET: DrugOrder/Add/5
+        [HttpPost]
+        public ActionResult Add(int id, FormCollection collection)
+        {
+            try
+            {
+                // TODO: Add update logic here
+
+                int ElementsToDiscount = int.Parse(collection["add"]);
+
+                if(ElementsToDiscount <= Storage.Instance.drugList.ElementAt(id-1).Stock)
+                {
+                    int excess = Storage.Instance.drugList.ElementAt(id - 1).Stock - ElementsToDiscount;
+                    Storage.Instance.drugList.ElementAt(id - 1).Stock = excess;
+
+                    DrugOrderModel drugAdded = new DrugOrderModel();
+                    drugAdded = Storage.Instance.drugList.ElementAt(id - 1);
+                    drugAdded.Stock = ElementsToDiscount;
+                    Storage.Instance.drugCartList.Add(drugAdded);
+                    return RedirectToAction("Cart");
+                }
+
+                return View();
+                
+            }
+            catch
+            {
+                return View();
+            }
+        }
+
+        // GET: DrugOrder
+        public ActionResult Cart()
+        {
+            return View(Storage.Instance.drugCartList);
         }
     }
 }

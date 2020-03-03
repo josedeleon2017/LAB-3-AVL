@@ -13,7 +13,7 @@ namespace LAB_2___ABB.Controllers
     {
         // GET: Drug
         public ActionResult Index()
-        {          
+        {
             return View();
         }
 
@@ -73,6 +73,7 @@ namespace LAB_2___ABB.Controllers
             return View();
         }
 
+
         // POST: Drug/Delete/5
         [HttpPost]
         public ActionResult Delete(int id, FormCollection collection)
@@ -88,6 +89,75 @@ namespace LAB_2___ABB.Controllers
                 return View();
             }
         }
+
+        public ActionResult TreeStatus()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult Pre()
+        {
+            string result = DrugModel.GetPreorder();
+            //Add logic to write in txt here.
+            string FilePath;
+            string Path = Server.MapPath("~/Traversals/");
+            if (!Directory.Exists(Path))
+                {
+                    Directory.CreateDirectory(Path);
+                }
+            FilePath = Path + "Preorder.txt";
+            System.IO.File.Create(FilePath).Close();
+            using (var streamWriter = new StreamWriter(FilePath, false))
+                {
+                    streamWriter.Write(result);
+                }
+            return View("TreeStatus");
+        }
+
+        
+
+        [HttpPost]
+        public ActionResult Post()
+        {
+            string result = DrugModel.GetPostorder();
+            //Add logic to write in txt here.
+            string FilePath;
+            string Path = Server.MapPath("~/Traversals/");
+            if (!Directory.Exists(Path))
+            {
+                Directory.CreateDirectory(Path);
+            }
+            FilePath = Path + "Postorder.txt";
+            System.IO.File.Create(FilePath).Close();
+            using (var streamWriter = new StreamWriter(FilePath, false))
+            {
+                streamWriter.Write(result);
+            }
+            return View("TreeStatus");
+        }
+
+        [HttpPost]
+        public ActionResult In()
+        {
+            string result = DrugModel.GetInorder();
+            //Add logic to write in txt here.
+            string FilePath;
+            string Path = Server.MapPath("~/Traversals/");
+            if (!Directory.Exists(Path))
+            {
+                Directory.CreateDirectory(Path);
+            }
+            FilePath = Path + "Inorder.txt";
+            System.IO.File.Create(FilePath).Close();
+            using (var streamWriter = new StreamWriter(FilePath, false))
+            {
+                streamWriter.Write(result);
+            }
+            return View("TreeStatus");
+        }
+
+
 
         //CSV reader on Tree
         public ActionResult CSV()

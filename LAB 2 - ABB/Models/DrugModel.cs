@@ -16,6 +16,7 @@ namespace LAB_2___ABB.Models
         {
             Storage.Instance.drugTree.Comparer = NameComparison;
             Storage.Instance.drugTree.Converter = IdConverter;
+            Storage.Instance.drugTree.GetValue = GetValueString;
             Storage.Instance.drugTree.Insert(drug);
         }
 
@@ -30,6 +31,24 @@ namespace LAB_2___ABB.Models
             return Storage.Instance.drugTree.Find(drugToSearch);
         }
 
+        public static string GetPreorder()
+        {
+            string result = Storage.Instance.drugTree.Preorder();
+            return result;
+        }
+
+        public static string GetPostorder()
+        {
+            string result = Storage.Instance.drugTree.Postorder();
+            return result;
+        }
+
+        public static string GetInorder()
+        {
+            string result = Storage.Instance.drugTree.Inorder();
+            return result;
+        }
+
         //DELEGATES
         public static Comparison<DrugModel> NameComparison = delegate (DrugModel drug1, DrugModel drug2)
         {
@@ -38,6 +57,12 @@ namespace LAB_2___ABB.Models
 
         public static Converter<DrugModel,Int32> IdConverter = delegate (DrugModel drug) {
             return drug.Id;
+        };
+
+        public static Func<DrugModel, string> GetValueString = delegate (DrugModel drug)
+        {
+            string value = drug.Id + "|" + drug.Name;
+            return value;
         };
 
     }

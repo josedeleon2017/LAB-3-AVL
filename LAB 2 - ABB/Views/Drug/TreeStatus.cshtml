@@ -1,0 +1,47 @@
+﻿@model LAB_2___ABB.Models.DrugModel
+
+@{
+    ViewBag.Title = "TreeStatus";
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>TreeStatus</title>
+</head>
+<body>
+    <div>
+        <h4>DrugModel</h4>
+        <hr />
+        <dl class="dl-horizontal">
+            <dt>
+
+            </dt>
+            @using (Html.BeginForm("Pre", "Drug"))
+            {
+                <input id="PreO" type="submit" value="Preorder" />
+
+            }
+            @using (Html.BeginForm("Post", "Drug"))
+            {
+                <input id="PostO" type="submit" value="Postorder" />
+
+            }
+            @using (Html.BeginForm("In", "Drug"))
+            {
+                <input id="InO" type="submit" value="Inorder" />
+
+            }
+            <dd>
+
+            </dd>
+
+        </dl>
+    </div>
+    <p>
+        
+    </p>
+</body>
+</html>

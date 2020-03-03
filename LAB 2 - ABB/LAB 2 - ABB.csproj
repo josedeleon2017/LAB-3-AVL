@@ -173,6 +173,7 @@
     <Content Include="Views\DrugOrder\SupplyStock.cshtml" />
     <Content Include="Views\DrugOrder\Add.cshtml" />
     <Content Include="Views\DrugOrder\Cart.cshtml" />
+    <Content Include="Views\Drug\TreeStatus.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

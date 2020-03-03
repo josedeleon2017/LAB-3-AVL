@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.IO;
 using System.Threading.Tasks;
 
 namespace NoLinealStructures.Structures
@@ -12,16 +13,129 @@ namespace NoLinealStructures.Structures
         public static int Count;
         public Delegate Comparer;
         public Delegate Converter;
+        public Delegate GetValue;
+        private string preorder = "";
+        private string postorder = "";
+        private string inorder = "";
 
         public void Delete(T value)
         {
             throw new NotImplementedException();
         }
 
+        private void Delete (Node<T> nodeF, T value)
+        {
+            Node<T> node = new Node<T>(value);
+
+        }
+
         public int Find(T value)
         {
             return Find(Root, value);
         }
+        public string Inorder()
+        {
+            inorder = "";
+            try
+            {
+                if (Root.Value != null)
+                {
+                    Inorder(Root);
+                }
+                else
+                {
+                    return "Empty Tree";
+                }
+                return inorder;
+            }
+            catch
+            {
+                return "Empty Tree";
+            }
+        }
+
+        private void Inorder(Node<T> node)
+        {
+            if (node.Left != null)
+            {
+                Inorder(node.Left);
+            }
+            inorder += (string)GetValue.DynamicInvoke(node.Value) + "\n";
+            if (node.Right != null)
+            {
+                Inorder(node.Right);
+            }
+        }
+
+        public string Postorder()
+        {
+            postorder = "";
+            try
+            {
+                if (Root.Value != null)
+                {
+                    Postorder(Root);
+                }
+                else
+                {
+                    return "Empty Tree";
+                }
+                return postorder;
+            }
+            catch
+            {
+                return "Empty Tree";
+            }
+        }
+
+        private void Postorder(Node<T> node)
+        {
+            if (node.Left != null)
+            {
+                Postorder(node.Left);
+            }
+            if (node.Right != null)
+            {
+                Postorder(node.Right);
+            }
+            postorder += (string)GetValue.DynamicInvoke(node.Value) + "\n";
+        }
+
+        public string Preorder()
+        {
+            preorder = "";
+            try
+            {
+                if (Root.Value != null)
+                {
+                    Preorder(Root);
+                }
+                else
+                {
+                    return "Empty Tree";
+                }
+                return preorder;
+            }
+            catch
+            {
+                return "Empty Tree";
+            }
+        }
+
+        private void Preorder(Node<T> node)
+        {
+            preorder += (string)GetValue.DynamicInvoke(node.Value) + "\n";
+            if (node.Left != null)
+            {
+                Preorder(node.Left);
+            }
+            if (node.Right != null)
+            {
+                Preorder(node.Right);
+            }
+        }
+
+
 
         private int Find(Node<T> nodeF, T value)
         {

@@ -14,20 +14,95 @@ namespace NoLinealStructures.Structures
         public Delegate Comparer;
         public Delegate Converter;
         public Delegate GetValue;
+        public Delegate GetStock;
         private string preorder = "";
         private string postorder = "";
         private string inorder = "";
 
+        public void NoStockCheck()
+        {
+            NoStockCheck(Root);
+        }
+
+        private void NoStockCheck(Node<T> node)
+        {
+            if (node.Left != null)
+            {
+                
+                NoStockCheck(node.Left);
+            }
+            
+            if (node.Right != null)
+            {
+                NoStockCheck(node.Right);
+            }
+            if ((Int32)GetStock.DynamicInvoke(node.Value) == 0)
+            {
+                //Call Delete here
+                Delete(node.Value);
+            }
+
+        }
+
         public void Delete(T value)
         {
-            throw new NotImplementedException();
+            Delete(Root.Value);
         }
-
-        private void Delete (Node<T> nodeF, T value)
+        private Node<T> Delete (Node<T> nodeF, T value)
         {
-            Node<T> node = new Node<T>(value);
+           if (nodeF == null)
+            {
+                return null;
+            }
+           if ((int)Comparer.DynamicInvoke(nodeF.Value, value) == 1)
+            {
+                nodeF.Left = Delete(nodeF.Left, value);
+            }
+           else if ((int)Comparer.DynamicInvoke(nodeF.Value, value) == -1)
+            {
+                nodeF.Right = Delete(nodeF.Right, value);
+            }
+            else
+            {
+                if(nodeF.Left == null && nodeF.Right == null)
+                {
+                    nodeF = null;
+                }
+                else if(nodeF.Left == null)
+                {
+                    Node<T> temp = nodeF;
+                    nodeF = nodeF.Right;
+                }
+                else if (nodeF.Right == null)
+                {
+                    Node<T> temp = nodeF;
+                    nodeF = nodeF.Left;
+                }
+                else
+                {
+                    Node<T> temp = null;
+                    temp.Value = FindMin(nodeF.Right);
+                    nodeF.Value = temp.Value;
+                    nodeF.Right = Delete(nodeF.Right, temp.Value);
+                }
 
+            }
+            return nodeF;
         }
+
+        private T FindMin(Node<T> root)
+        {
+            if (root == null)
+            {  
+            }
+            if (root.Left != null)
+            {
+                return FindMin(root.Left);
+            }
+            return root.Value;
+        }
+
+        
 
         public int Find(T value)
         {

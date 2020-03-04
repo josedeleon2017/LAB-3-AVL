@@ -35,11 +35,11 @@ namespace LAB_2___ABB.Controllers
         // GET: DrugOrder
         public ActionResult SupplyStock()
         {
-            for(int i=0; i<Storage.Instance.drugList.Count; i++)
+            Random random = new Random();
+            for (int i=0; i<Storage.Instance.drugList.Count; i++)
             {               
                 if (Storage.Instance.drugList.ElementAt(i).Stock != 0)
-                { 
-                    Random random = new Random();
+                {
                     int number = random.Next(1, 15);
                     Storage.Instance.drugList.ElementAt(i).Stock = number;
                 }
@@ -199,9 +199,12 @@ namespace LAB_2___ABB.Controllers
                     drugAdded = Storage.Instance.drugList.ElementAt(id - 1);
                     drugAdded.Stock = ElementsToDiscount;
                     Storage.Instance.drugCartList.Add(drugAdded);
+                    Storage.Instance.drugTree.NoStockCheck();
                     return RedirectToAction("Cart");
                 }
 
+                //CALL HERE FUNCTION TO DELETE FROM TREE IF NO STOCK LEFT.
+                
                 return View();
                 
             }

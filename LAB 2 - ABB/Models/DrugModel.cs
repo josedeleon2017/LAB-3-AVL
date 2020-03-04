@@ -17,6 +17,7 @@ namespace LAB_2___ABB.Models
             Storage.Instance.drugTree.Comparer = NameComparison;
             Storage.Instance.drugTree.Converter = IdConverter;
             Storage.Instance.drugTree.GetValue = GetValueString;
+            Storage.Instance.drugTree.GetStock = GetStock;
             Storage.Instance.drugTree.Insert(drug);
         }
 
@@ -63,6 +64,14 @@ namespace LAB_2___ABB.Models
         {
             string value = drug.Id + "|" + drug.Name;
             return value;
+        };
+
+        public static Func<DrugModel, Int32> GetStock = delegate (DrugModel drug)
+        {
+            DrugOrderModel drugCheck = new DrugOrderModel();
+            int drugPosition = DrugModel.Search(drug.Name) - 1;
+            drugCheck = Storage.Instance.drugList.ElementAt(drugPosition);
+            return drugCheck.Stock;
         };
 
     }

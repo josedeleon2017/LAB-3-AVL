@@ -23,6 +23,7 @@
 239|Acetaminophen
 44|4 in 1 Pressed Mineral SPF 15 Blush Medium
 39|"Pollens - Weeds and Garden Plants, Sagebrush, Mugwort Artemisia vulgaris"
+953|Acyclovir
 841|Adderall
 278|Adalat CC
 977|ADVATE
@@ -50,6 +51,7 @@
 986|Aluminum Hydroxide
 891|Aluminum Hydroxide
 196|Alprazolam
+533|Aminophylline
 433|Amiodarone Hydrochloride
 148|AMBIEN
 899|Amlodipine Besylate
@@ -160,6 +162,7 @@
 468|CD DIORSKIN NUDE SKIN-GLOWING MAKEUP SUNSCREEN BROAD SPECTRUM SPF 15 063 Amber
 595|CEFOTAXIME
 451|CEDAX
+945|Cefuroxime Axetil
 920|CENTER-AL - ATRIPLEX WRIGHTII POLLEN
 594|CellCept
 550|Cefuroxime Axetil
@@ -265,6 +268,7 @@
 270|Diazepam
 237|Diazepam
 410|Diltiazem Hydrochloride
+775|DiorSkin Nude 052 Rosy Bronze
 958|Direct Safety Extra Strength Aspirin Free
 830|Diphenoxylate Hydrochloride and Atropine Sulfate
 421|Diphenhydramine HCl
@@ -452,6 +456,7 @@
 515|Hydroxychloroquine Sulfate
 356|Hydroxyzine Hydrochloride
 324|HZ
+852|iBaba
 743|ibuprofen
 319|HZ Formula
 997|Ibuprofen and Pseudoephedrine Hydrochloride

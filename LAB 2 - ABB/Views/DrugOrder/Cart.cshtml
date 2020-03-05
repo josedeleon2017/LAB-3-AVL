@@ -10,7 +10,7 @@
     @Html.ActionLink("Create New", "Create")
 </p>
 <table class="table">
-    <tr>      
+    <tr>
         <th>
             @Html.DisplayNameFor(model => model.DrugName)
         </th>
@@ -26,27 +26,40 @@
         <th>
             @Html.DisplayNameFor(model => model.Stock)
         </th>
-        <th></th>
+        <th>
+            @Html.DisplayNameFor(model => model.Name)
+        </th>
     </tr>
 
-@foreach (var item in Model) {
-    <tr>       
-        <td>
-            @Html.DisplayFor(modelItem => item.DrugName)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Description)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Producer)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Price)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Stock)
-        </td>
-    </tr>
-}
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.DrugName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Description)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Producer)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Price)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Stock)
+            </td>
+
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+                <br />
+                @Html.DisplayFor(modelItem => item.Address)
+                <br />
+                @Html.DisplayFor(modelItem => item.Nit)
+            </td>
+        </tr>
+
+    }
 
 </table>
+

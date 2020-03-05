@@ -38,10 +38,17 @@ namespace LAB_2___ABB.Controllers
             Random random = new Random();
             for (int i=0; i<Storage.Instance.drugList.Count; i++)
             {               
-                if (Storage.Instance.drugList.ElementAt(i).Stock != 0)
+                if (Storage.Instance.drugList.ElementAt(i).Stock == 0)
                 {
                     int number = random.Next(1, 15);
                     Storage.Instance.drugList.ElementAt(i).Stock = number;
+
+                    var drugPreviouslyDeleted = new DrugModel
+                    {
+                        Id = Storage.Instance.drugList.ElementAt(i).Id,
+                        Name = Storage.Instance.drugList.ElementAt(i).DrugName,
+                    };
+                    DrugModel.Add(drugPreviouslyDeleted);
                 }
             }      
             return View(Storage.Instance.drugList);
@@ -198,6 +205,10 @@ namespace LAB_2___ABB.Controllers
 
                     var drugExpended = new DrugOrderModel
                     {
+                        Name = collection["name"],
+                        Address = collection["address"],
+                        Nit = collection["nit"],
+
                         Id = Storage.Instance.drugList.ElementAt(id - 1).Id,
                         DrugName = Storage.Instance.drugList.ElementAt(id - 1).DrugName,
                         Description = Storage.Instance.drugList.ElementAt(id - 1).Description,

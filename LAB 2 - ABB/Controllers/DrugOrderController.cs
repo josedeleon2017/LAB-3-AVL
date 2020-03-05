@@ -22,14 +22,21 @@ namespace LAB_2___ABB.Controllers
         [HttpPost]
         public ActionResult Index(FormCollection collection)
         {
-            var drugName = collection["search"];
+            try
+            {
+                var drugName = collection["search"];
 
-            Storage.Instance.drugOrderList.Clear();
+                Storage.Instance.drugOrderList.Clear();
 
-            int drugPosition = DrugModel.Search(drugName) - 1;
-            DrugOrderModel drugFound = Storage.Instance.drugList.ElementAt(drugPosition);
-            Storage.Instance.drugOrderList.Add(drugFound);
-            return View(Storage.Instance.drugOrderList);
+                int drugPosition = DrugModel.Search(drugName) - 1;
+                DrugOrderModel drugFound = Storage.Instance.drugList.ElementAt(drugPosition);
+                Storage.Instance.drugOrderList.Add(drugFound);
+                return View(Storage.Instance.drugOrderList);
+            }
+            catch
+            {
+                return View("ErrorMessage");
+            }
         }
 
         // GET: DrugOrder
@@ -235,7 +242,7 @@ namespace LAB_2___ABB.Controllers
             }
             catch
             {
-                return View();
+                return View("ErrorMessage");
             }
         }
 

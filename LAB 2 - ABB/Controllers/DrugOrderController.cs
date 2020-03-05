@@ -182,7 +182,7 @@ namespace LAB_2___ABB.Controllers
 
         //GET: DrugOrder/Add/5
         [HttpPost]
-        public ActionResult Add(int id, FormCollection collection)
+        public ActionResult Add(int id , FormCollection collection)
         {
             try
             {
@@ -192,19 +192,33 @@ namespace LAB_2___ABB.Controllers
 
                 if(ElementsToDiscount <= Storage.Instance.drugList.ElementAt(id-1).Stock)
                 {
-                    int excess = Storage.Instance.drugList.ElementAt(id - 1).Stock - ElementsToDiscount;
-                    Storage.Instance.drugList.ElementAt(id - 1).Stock = excess;
+                    
+                    int updateStock = Storage.Instance.drugList.ElementAt(id - 1).Stock - ElementsToDiscount;
+                    Storage.Instance.drugList.ElementAt(id - 1).Stock = updateStock;
 
-                    DrugOrderModel drugAdded = new DrugOrderModel();
-                    drugAdded = Storage.Instance.drugList.ElementAt(id - 1);
-                    drugAdded.Stock = ElementsToDiscount;
-                    Storage.Instance.drugCartList.Add(drugAdded);
-                    Storage.Instance.drugTree.NoStockCheck();
+                    var drugExpended = new DrugOrderModel
+                    {
+                        Id = Storage.Instance.drugList.ElementAt(id - 1).Id,
+                        DrugName = Storage.Instance.drugList.ElementAt(id - 1).DrugName,
+                        Description = Storage.Instance.drugList.ElementAt(id - 1).Description,
+                        Producer = Storage.Instance.drugList.ElementAt(id - 1).Producer,
+                        Price = Storage.Instance.drugList.ElementAt(id - 1).Price,
+                        Stock = ElementsToDiscount,
+                    };
+
+                    Storage.Instance.drugCartList.Add(drugExpended);                  
+
+                    //TESTS
+                    //Storage.Instance.drugList.ElementAt(2).Stock=0;
+
+                    // DrugModel.Delete();
+
                     return RedirectToAction("Cart");
                 }
 
                 //CALL HERE FUNCTION TO DELETE FROM TREE IF NO STOCK LEFT.
-                
+               
+
                 return View();
                 
             }

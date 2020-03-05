@@ -32,6 +32,20 @@ namespace LAB_2___ABB.Models
             return Storage.Instance.drugTree.Find(drugToSearch);
         }
 
+        //DELETE TREE 
+        public static void Delete()
+        {
+            for (int i = 0; i < Storage.Instance.drugList.Count; i++)
+            {
+                if (Storage.Instance.drugList.ElementAt(i).Stock == 0)
+                {
+                    DrugModel drugToDelete = new DrugModel();
+                    drugToDelete.Id = Storage.Instance.drugList.ElementAt(i).Id;
+                    Storage.Instance.drugTree.Delete(drugToDelete);
+                }
+            }
+        }
+
         public static string GetPreorder()
         {
             string result = Storage.Instance.drugTree.Preorder();

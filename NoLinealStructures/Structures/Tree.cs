@@ -27,8 +27,7 @@ namespace NoLinealStructures.Structures
         private void NoStockCheck(Node<T> node)
         {
             if (node.Left != null)
-            {
-                
+            {             
                 NoStockCheck(node.Left);
             }
             
@@ -46,7 +45,7 @@ namespace NoLinealStructures.Structures
 
         public void Delete(T value)
         {
-            Delete(Root.Value);
+            Delete(Root, value);
         }
         private Node<T> Delete (Node<T> nodeF, T value)
         {
@@ -104,10 +103,7 @@ namespace NoLinealStructures.Structures
 
         
 
-        public int Find(T value)
-        {
-            return Find(Root, value);
-        }
+       
         public string Inorder()
         {
             inorder = "";
@@ -210,7 +206,10 @@ namespace NoLinealStructures.Structures
             }
         }
 
-
+        public int Find(T value)
+        {
+            return Find(Root, value);
+        }
 
         private int Find(Node<T> nodeF, T value)
         {

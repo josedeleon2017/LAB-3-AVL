@@ -40,7 +40,7 @@ namespace LAB_2___ABB.Models
                 if (Storage.Instance.drugList.ElementAt(i).Stock == 0)
                 {
                     DrugModel drugToDelete = new DrugModel();
-                    drugToDelete.Id = Storage.Instance.drugList.ElementAt(i).Id;
+                    drugToDelete.Name = Storage.Instance.drugList.ElementAt(i).DrugName;
                     Storage.Instance.drugTree.Delete(drugToDelete);
                 }
             }

@@ -225,11 +225,11 @@ namespace LAB_2___ABB.Controllers
                     };
 
                     Storage.Instance.drugCartList.Add(drugExpended);
-                    Storage.Instance.drugTree.NoStockCheck();
+                   // Storage.Instance.drugTree.NoStockCheck();
                     //TESTS
                     //Storage.Instance.drugList.ElementAt(2).Stock=0;
 
-                    // DrugModel.Delete();
+                     DrugModel.Delete();
 
                     return RedirectToAction("Cart");
                 }

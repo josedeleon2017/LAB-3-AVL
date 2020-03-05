@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 957|"Acetaminophen, Dextromethorphan Hydrobromide, Guaifenesin, Phenylephrine Hydrochloride"
 544|"ACETAMINOPHEN, DEXTROMETHORPHAN HYDROBROMIDE, and DOXYLAMINE SUCCINATE"
 350|"Alka-Seltzer Plus Severe Cold, Mucus and Congestion"
@@ -998,3 +999,9 @@
 34|Vicks VapoDrops
 6|Venlafaxine
 1|REMEDY Calazime Skin Protectant
+=======
+4|CCC
+5|ZZZ
+2|DDD
+3|AAA
+>>>>>>> b6d56bd1a46ddf38e16ed77f82ddda4620742a60

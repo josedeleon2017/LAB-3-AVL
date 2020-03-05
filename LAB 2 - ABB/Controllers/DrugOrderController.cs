@@ -217,8 +217,8 @@ namespace LAB_2___ABB.Controllers
                         Stock = ElementsToDiscount,
                     };
 
-                    Storage.Instance.drugCartList.Add(drugExpended);                  
-
+                    Storage.Instance.drugCartList.Add(drugExpended);
+                    Storage.Instance.drugTree.NoStockCheck();
                     //TESTS
                     //Storage.Instance.drugList.ElementAt(2).Stock=0;
 

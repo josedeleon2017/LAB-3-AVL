@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 544|"ACETAMINOPHEN, DEXTROMETHORPHAN HYDROBROMIDE, and DOXYLAMINE SUCCINATE"
 957|"Acetaminophen, Dextromethorphan Hydrobromide, Guaifenesin, Phenylephrine Hydrochloride"
 350|"Alka-Seltzer Plus Severe Cold, Mucus and Congestion"
@@ -998,3 +999,9 @@
 906|ZyPram
 124|Zyprexa
 663|Zyprexa
+=======
+3|AAA
+4|CCC
+2|DDD
+5|ZZZ
+>>>>>>> b6d56bd1a46ddf38e16ed77f82ddda4620742a60

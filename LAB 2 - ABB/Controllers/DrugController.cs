@@ -6,6 +6,7 @@ using System.Web.Mvc;
 using LAB_2___ABB.Models;
 using System.IO;
 using System.Text.RegularExpressions;
+using LAB_2___ABB.Helpers;
 
 namespace LAB_2___ABB.Controllers
 {
@@ -179,6 +180,37 @@ namespace LAB_2___ABB.Controllers
                 FilePath = Path + System.IO.Path.GetFileName(postedfile.FileName);
                 postedfile.SaveAs(FilePath);
 
+                string csvData = System.IO.File.ReadAllText(FilePath);
+                foreach (string row in csvData.Split('\n'))
+                {
+                    if (!string.IsNullOrEmpty(row))
+                    {
+                        try
+                        {
+                            Regex regx = new Regex("," + "(?=(?:[^\"]*\"[^\"]*\")*(?![^\"]*\"))");
+                            string[] line = regx.Split(row);
+
+                            string price = Convert.ToString(regx.Split(row)[4]);
+                            price = price.Substring(1, price.Length - 1);
+
+                            var drug = new DrugOrderModel
+                            {
+                                Id = Convert.ToInt32(regx.Split(row)[0]),
+                                DrugName = line[1],
+                                Description = line[2],
+                                Producer = line[3],
+                                Price = Convert.ToDouble(price),
+                                Stock = Convert.ToInt32(regx.Split(row)[5]),
+                            };
+                            //SAVE MEDICINE ON THE LIST
+                            Storage.Instance.drugList.Add(drug);
+                        }
+                        catch
+                        {
+                        }
+                    }
+                }
+
                 using (var fileStream = new FileStream(FilePath, FileMode.Open))
                 {
                     using (var streamReader = new StreamReader(fileStream))
@@ -195,13 +227,14 @@ namespace LAB_2___ABB.Controllers
                                 Id = Convert.ToInt32(line[0]),
                                 Name = line[1],
                             };
+                            //SAVE MEDICINE ON THE TREE
                             DrugModel.Add(drug);
                         }
                     }
                 }
 
             }
-            return View();
+            return RedirectToAction("Index");
         }
     }
 }

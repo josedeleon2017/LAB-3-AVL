@@ -233,11 +233,13 @@ namespace LAB_2___ABB.Controllers
 
                     return RedirectToAction("Cart");
                 }
+                else
+                {
+                    return View("ErrorMessage");
+                }
 
                 //CALL HERE FUNCTION TO DELETE FROM TREE IF NO STOCK LEFT.
                
-
-                return View();
                 
             }
             catch

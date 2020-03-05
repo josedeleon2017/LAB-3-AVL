@@ -234,7 +234,7 @@ namespace LAB_2___ABB.Controllers
                 }
 
             }
-            return RedirectToAction("Index");
+            return View();
         }
     }
 }

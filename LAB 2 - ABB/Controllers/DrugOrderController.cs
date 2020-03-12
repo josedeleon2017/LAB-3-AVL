@@ -133,58 +133,7 @@ namespace LAB_2___ABB.Controllers
             }
         }
 
-        //CSV reader on Tree
-        public ActionResult CSV()
-        {
-            return View();
-        }
 
-        [HttpPost]
-        public ActionResult CSV(HttpPostedFileBase postedfile)
-        {
-            string FilePath;
-            if (postedfile != null)
-            {
-                string Path = Server.MapPath("~/Data/");
-                if (!Directory.Exists(Path))
-                {
-                    Directory.CreateDirectory(Path);
-                }
-                FilePath = Path + System.IO.Path.GetFileName(postedfile.FileName);
-                postedfile.SaveAs(FilePath);
-                string csvData = System.IO.File.ReadAllText(FilePath);
-                foreach (string row in csvData.Split('\n'))
-                {
-                    if (!string.IsNullOrEmpty(row))
-                    {
-                        try
-                        {
-                            Regex regx = new Regex("," + "(?=(?:[^\"]*\"[^\"]*\")*(?![^\"]*\"))");
-                            string[] line = regx.Split(row);  
-                            
-                            string price = Convert.ToString(regx.Split(row)[4]);
-                            price = price.Substring(1, price.Length-1);
-
-                            var drug = new DrugOrderModel
-                            {
-                                Id = Convert.ToInt32(regx.Split(row)[0]),
-                                DrugName = line[1],
-                                Description = line[2],
-                                Producer = line[3],
-                                Price = Convert.ToDouble(price),
-                                Stock = Convert.ToInt32(regx.Split(row)[5]),
-                            };
-                            //SAVE MEDICINE ON THE LIST
-                            Storage.Instance.drugList.Add(drug);                                                    
-                        }
-                        catch
-                        {
-                        }
-                    }
-                }
-            }
-            return RedirectToAction("Index");
-        }
 
         // GET: DrugOrder/Add/5
         public ActionResult Add(int id)
@@ -222,14 +171,17 @@ namespace LAB_2___ABB.Controllers
                         Producer = Storage.Instance.drugList.ElementAt(id - 1).Producer,
                         Price = Storage.Instance.drugList.ElementAt(id - 1).Price,
                         Stock = ElementsToDiscount,
+                        Total = Storage.Instance.drugList.ElementAt(id - 1).Price * ElementsToDiscount,
                     };
 
-                    Storage.Instance.drugCartList.Add(drugExpended);
-                   // Storage.Instance.drugTree.NoStockCheck();
-                    //TESTS
-                    //Storage.Instance.drugList.ElementAt(2).Stock=0;
+                    if (updateStock == 0)
+                    {
+                        DrugModel.Delete(Storage.Instance.drugList.ElementAt(id-1).DrugName);
+                    }
 
-                     DrugModel.Delete();
+                    Storage.Instance.drugCartList.Add(drugExpended);
+
+                     
 
                     return RedirectToAction("Cart");
                 }

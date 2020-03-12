@@ -17,7 +17,6 @@ namespace LAB_2___ABB.Models
             Storage.Instance.drugTree.Comparer = NameComparison;
             Storage.Instance.drugTree.Converter = IdConverter;
             Storage.Instance.drugTree.GetValue = GetValueString;
-            Storage.Instance.drugTree.GetStock = GetStock;
             Storage.Instance.drugTree.Insert(drug);
         }
 
@@ -33,19 +32,14 @@ namespace LAB_2___ABB.Models
         }
 
         //DELETE TREE 
-        public static void Delete()
-        {
-            for (int i = 0; i < Storage.Instance.drugList.Count; i++)
-            {
-                if (Storage.Instance.drugList.ElementAt(i).Stock == 0)
-                {
-                    DrugModel drugToDelete = new DrugModel();
-                    drugToDelete.Name = Storage.Instance.drugList.ElementAt(i).DrugName;
-                    Storage.Instance.drugTree.Delete(drugToDelete);
-                }
-            }
+        public static void Delete(string drugName)
+        {        
+              DrugModel drugToDelete = new DrugModel();
+              drugToDelete.Name = drugName;
+              Storage.Instance.drugTree.Delete(drugToDelete);
         }
 
+        //TRAVERSALS
         public static string GetPreorder()
         {
             string result = Storage.Instance.drugTree.Preorder();
@@ -78,14 +72,6 @@ namespace LAB_2___ABB.Models
         {
             string value = drug.Id + "|" + drug.Name;
             return value;
-        };
-
-        public static Func<DrugModel, Int32> GetStock = delegate (DrugModel drug)
-        {
-            DrugOrderModel drugCheck = new DrugOrderModel();
-            int drugPosition = DrugModel.Search(drug.Name) - 1;
-            drugCheck = Storage.Instance.drugList.ElementAt(drugPosition);
-            return drugCheck.Stock;
         };
 
     }

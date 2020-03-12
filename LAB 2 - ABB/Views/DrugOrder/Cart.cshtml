@@ -6,9 +6,6 @@
 
 <h2>Cart</h2>
 
-<p>
-    @Html.ActionLink("New order", "Index")
-</p>
 <table class="table">
     <tr>
         <th>
@@ -56,10 +53,22 @@
                 @Html.DisplayFor(modelItem => item.Address)
                 <br />
                 @Html.DisplayFor(modelItem => item.Nit)
+                <br />
+
+
+                <b>TOTAL $</b>
+                <b>
+                    @Html.DisplayFor(modelItem => item.Total)
+                </b>
+
             </td>
         </tr>
 
     }
 
 </table>
+
+<p>
+    @Html.ActionLink("New order", "Index")
+</p>
 

@@ -1,8 +1,9 @@
-﻿@model LAB_2___ABB.Models.DrugModel
+﻿@model IEnumerable<LAB_2___ABB.Models.DrugModel>
 
 @{
     ViewBag.Title = "TreeStatus";
 }
+
 
 <!DOCTYPE html>
 
@@ -13,27 +14,61 @@
 </head>
 <body>
     <div>
-        <h2>Type of traversal</h2>
-        <hr />
+        <h2>TreeStatus</h2>
     </div>
 
-    @using (Html.BeginForm("Pre", "Drug"))
-    {
-        <input id="PreO" type="submit" value="Preorder" />
+    <table>
+        <tr>
+            <th>
+                @using (Html.BeginForm("Pre", "Drug"))
+                {
+                    <input id="PreO" type="submit" value="Pre Order" class="btn btn-default" />
 
-    }
+                }
+            </th>
+
+            <th>
+                @using (Html.BeginForm("Post", "Drug"))
+                {
+                    <input id="PostO" type="submit" value="Post Order" class="btn btn-default" />
+
+                }
+            </th>
+
+            <th>
+                @using (Html.BeginForm("In", "Drug"))
+                {
+                    <input id="InO" type="submit" value="In Order" class="btn btn-default" />
+
+                }
+            </th>
+
+        </tr>
+    </table>
     <br />
-    @using (Html.BeginForm("Post", "Drug"))
-    {
-        <input id="PostO" type="submit" value="Postorder" />
+    <table class="table">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Id)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Name)
+            </th>
+        </tr>
 
-    }
-    <br />
-    @using (Html.BeginForm("In", "Drug"))
-    {
-        <input id="InO" type="submit" value="Inorder" />
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Id)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>
+            </tr>
+        }
 
-    }
+    </table>
 
 </body>
 </html>

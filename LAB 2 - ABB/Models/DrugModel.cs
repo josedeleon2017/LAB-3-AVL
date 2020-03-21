@@ -71,6 +71,12 @@ namespace LAB_2___ABB.Models
         public static Func<DrugModel, string> GetValueString = delegate (DrugModel drug)
         {
             string value = drug.Id + "|" + drug.Name;
+
+            DrugModel currentDrug = new DrugModel();
+            currentDrug.Id = drug.Id;
+            currentDrug.Name = drug.Name;
+            Storage.Instance.drugStatusList.Add(currentDrug);
+
             return value;
         };
 

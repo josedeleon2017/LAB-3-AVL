@@ -93,12 +93,13 @@ namespace LAB_2___ABB.Controllers
 
         public ActionResult TreeStatus()
         {
-            return View();
+            return View(Storage.Instance.drugStatusList);
         }
 
         [HttpPost]
         public ActionResult Pre()
         {
+            Storage.Instance.drugStatusList.Clear();
             string result = DrugModel.GetPreorder();
             //Add logic to write in txt here.
             string FilePath;
@@ -113,7 +114,8 @@ namespace LAB_2___ABB.Controllers
                 {
                     streamWriter.Write(result);
                 }
-            return View("TreeStatus");
+
+            return RedirectToAction("TreeStatus");
         }
 
         
@@ -121,6 +123,7 @@ namespace LAB_2___ABB.Controllers
         [HttpPost]
         public ActionResult Post()
         {
+            Storage.Instance.drugStatusList.Clear();
             string result = DrugModel.GetPostorder();
             //Add logic to write in txt here.
             string FilePath;
@@ -135,12 +138,14 @@ namespace LAB_2___ABB.Controllers
             {
                 streamWriter.Write(result);
             }
-            return View("TreeStatus");
+
+            return RedirectToAction("TreeStatus");
         }
 
         [HttpPost]
         public ActionResult In()
         {
+            Storage.Instance.drugStatusList.Clear();
             string result = DrugModel.GetInorder();
             //Add logic to write in txt here.
             string FilePath;
@@ -155,7 +160,8 @@ namespace LAB_2___ABB.Controllers
             {
                 streamWriter.Write(result);
             }
-            return View("TreeStatus");
+
+            return RedirectToAction("TreeStatus");
         }
 
 
@@ -181,8 +187,9 @@ namespace LAB_2___ABB.Controllers
                 postedfile.SaveAs(FilePath);
 
                 string csvData = System.IO.File.ReadAllText(FilePath);
+                csvData.Split();
                 foreach (string row in csvData.Split('\n'))
-                {
+                {                   
                     if (!string.IsNullOrEmpty(row))
                     {
                         try
@@ -215,6 +222,7 @@ namespace LAB_2___ABB.Controllers
                 {
                     using (var streamReader = new StreamReader(fileStream))
                     {
+                        streamReader.ReadLine();
                         while (!streamReader.EndOfStream)
                         {
                             var row = streamReader.ReadLine(); 

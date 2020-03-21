@@ -41,24 +41,31 @@ namespace LAB_2___ABB.Controllers
 
         // GET: DrugOrder
         public ActionResult SupplyStock()
-        {
-            Random random = new Random();
-            for (int i=0; i<Storage.Instance.drugList.Count; i++)
-            {               
-                if (Storage.Instance.drugList.ElementAt(i).Stock == 0)
-                {
-                    int number = random.Next(1, 15);
-                    Storage.Instance.drugList.ElementAt(i).Stock = number;
+        {   
+            return View(Storage.Instance.drugList.Where(x => x.Stock == 0));
+        }
 
-                    var drugPreviouslyDeleted = new DrugModel
-                    {
-                        Id = Storage.Instance.drugList.ElementAt(i).Id,
-                        Name = Storage.Instance.drugList.ElementAt(i).DrugName,
-                    };
-                    DrugModel.Add(drugPreviouslyDeleted);
-                }
-            }      
-            return View(Storage.Instance.drugList);
+        // GET: DrugOrder/NewStock/5
+        public ActionResult NewStock()
+        {
+            var currentList = Storage.Instance.drugList.Where(x => x.Stock == 0).ToList();
+
+
+            Random random = new Random();
+            for (int i = 0; i < currentList.Count(); i++)
+            {
+                int number = random.Next(1, 15);
+                currentList.ElementAt(i).Stock = number;
+
+                var drugPreviouslyDeleted = new DrugModel
+                {
+                    Id = currentList.ElementAt(i).Id,
+                    Name = currentList.ElementAt(i).DrugName,
+                };
+                DrugModel.Add(drugPreviouslyDeleted);
+            }
+
+            return RedirectToAction("SupplyStock");
         }
 
         // GET: DrugOrder/Details/5
@@ -131,9 +138,7 @@ namespace LAB_2___ABB.Controllers
             {
                 return View();
             }
-        }
-
-
+        }     
 
         // GET: DrugOrder/Add/5
         public ActionResult Add(int id)
@@ -154,8 +159,7 @@ namespace LAB_2___ABB.Controllers
                 int ElementsToDiscount = int.Parse(collection["add"]);
 
                 if(ElementsToDiscount <= Storage.Instance.drugList.ElementAt(id-1).Stock)
-                {
-                    
+                {                    
                     int updateStock = Storage.Instance.drugList.ElementAt(id - 1).Stock - ElementsToDiscount;
                     Storage.Instance.drugList.ElementAt(id - 1).Stock = updateStock;
 

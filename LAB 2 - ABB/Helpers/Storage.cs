@@ -18,11 +18,21 @@ namespace LAB_2___ABB.Helpers
                 return _instance;
             }
         }
+
+        //TREE
         public NoLinealStructures.Structures.Tree<DrugModel> drugTree = new NoLinealStructures.Structures.Tree<DrugModel>();
+
+        //LIST TO SEARCH WITH ID
         public List<DrugOrderModel> drugList = new List<DrugOrderModel>();
+
+        //LIST TO SEE THE RESULT
         public List<DrugOrderModel> drugOrderList = new List<DrugOrderModel>();
+
+        //LIST TO SAVE THE ORDER
         public List<DrugOrderModel> drugCartList = new List<DrugOrderModel>();
 
+        //LIST TO SEE STATUS
+        public List<DrugModel> drugStatusList = new List<DrugModel>();
 
     }
 }

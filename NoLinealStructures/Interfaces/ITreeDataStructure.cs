@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using NoLinealStructures.Structures;
 
 namespace NoLinealStructures.Interfaces
 {
@@ -10,7 +11,7 @@ namespace NoLinealStructures.Interfaces
     {
         void Insert(T value);
         int Find(T value);
-        void Delete(T value);       
-
+        void Delete(T value);
+        Node<T> InsertAVL(Node<T> node, T value);
     }
 }

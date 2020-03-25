@@ -1,6 +1,8 @@
 id,nombre,descripcion,casa_productora,precio,existencia
-1,BBB,"Adverse effect of amphetamines subsequent encounter","Medline Industries Inc.",$540.21,10
-2,DDD,"Teva Women's Health Inc.","Duplicate Inc.",$825.55,5
-3,AAA,Walgreen Company,"Triplicate Inc.",$937.66,2
-4,CCC,"Poisoning by succinimides and oxazolidinediones undet",Jubilant HollisterStier LLC,$812.10,8
-5,ZZZ,"Unspecified injury of lung bilateral initial encounter",Apotheca Company,$514.56,3
+1,JJJ,"Adverse effect of amphetamines subsequent encounter","Medline Industries Inc.",$540.21,10
+2,EEE,"Teva Women's Health Inc.","Duplicate Inc.",$825.55,5
+3,KKK,Walgreen Company,"Triplicate Inc.",$937.66,2
+4,AAA,"Poisoning by succinimides and oxazolidinediones undet",Jubilant HollisterStier LLC,$812.10,8
+5,HHH,"Unspecified injury of lung bilateral initial encounter",Apotheca Company,$514.56,3
+6,FFF,Other superficial bite of unspecified back wall of thorax,Clinical Solutions Wholesale,$858.27,11
+7,III,"Fibrous dysplasia (monostotic), unspecified shoulder",Qualitest Pharmaceuticals,$159.61,5

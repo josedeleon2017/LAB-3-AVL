@@ -17,7 +17,7 @@ namespace LAB_2___ABB.Models
             Storage.Instance.drugTree.Comparer = NameComparison;
             Storage.Instance.drugTree.Converter = IdConverter;
             Storage.Instance.drugTree.GetValue = GetValueString;
-            Storage.Instance.drugTree.Insert(drug);
+            Storage.Instance.drugTree.Root = Storage.Instance.drugTree.InsertAVL(Storage.Instance.drugTree.Root, drug);
         }
 
         //SEARCH TREE               
@@ -64,7 +64,8 @@ namespace LAB_2___ABB.Models
             return drug1.Name.CompareTo(drug2.Name);
         };
 
-        public static Converter<DrugModel,Int32> IdConverter = delegate (DrugModel drug) {
+        public static Converter<DrugModel,Int32> IdConverter = delegate (DrugModel drug)
+        {
             return drug.Id;
         };
 

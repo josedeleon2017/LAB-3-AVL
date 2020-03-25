@@ -9,8 +9,9 @@ namespace NoLinealStructures.Structures
 {
     public class Tree<T> : Interfaces.ITreeDataStructure<T>
     {
-        static Node<T> Root { get; set; }
+        public Node<T> Root { get; set; }
         public static int Count;
+
         public Delegate Comparer;
         public Delegate Converter;
         public Delegate GetValue;
@@ -18,34 +19,135 @@ namespace NoLinealStructures.Structures
         private string postorder = "";
         private string inorder = "";
 
-        //FIND
-        public int Find(T value)
+        //AVL
+        int getFactor(Node<T> node)
         {
-            return Find(Root, value);
-        }
-
-        private int Find(Node<T> nodeF, T value)
-        {
-            Node<T> node = new Node<T>(value);
-
-            if (nodeF == null)
+            if (node == null)
             {
                 return 0;
             }
-            else if ((int)Comparer.DynamicInvoke(nodeF.Value, node.Value) == 0)
+            return node.Factor;
+        }
+
+        int maxFactor(int leftFactor, int rightFactor)
+        {
+            if (leftFactor > rightFactor)
             {
-                node.Value = nodeF.Value;
-                return (int)Converter.DynamicInvoke(node.Value);
-            }
-            else if ((int)Comparer.DynamicInvoke(nodeF.Value, node.Value) == 1)
-            {
-                return Find(nodeF.Left, value);
+                return leftFactor;
             }
             else
             {
-                return Find(nodeF.Right, value);
+                return rightFactor;
             }
         }
+
+        Node<T> s_Right(Node<T> nodeF)
+        {
+            Node<T> currentLeft = nodeF.Left;
+            Node<T> treeRight = currentLeft.Right;
+
+            // Perform rotation  
+            currentLeft.Right = nodeF;
+            nodeF.Left = treeRight;
+
+            // Update heights  
+            nodeF.Factor = maxFactor(getFactor(nodeF.Left), getFactor(nodeF.Right)) + 1;
+            currentLeft.Factor = maxFactor(getFactor(currentLeft.Left), getFactor(currentLeft.Right)) + 1;
+
+            // Return new root  
+            return currentLeft;
+        }
+
+        // A utility function to left 
+        // rotate subtree rooted with x  
+        // See the diagram given above.  
+        Node<T> s_Left(Node<T> nodeF)
+        {
+            Node<T> currentRight = nodeF.Right;
+            Node<T> treeLeft = currentRight.Left;
+
+            // Perform rotation  
+            currentRight.Left = nodeF;
+            nodeF.Right = treeLeft;
+
+            // Update heights  
+            nodeF.Factor = maxFactor(getFactor(nodeF.Left), getFactor(nodeF.Right)) + 1;
+            currentRight.Factor = maxFactor(getFactor(currentRight.Left), getFactor(currentRight.Right)) + 1;
+
+            // Return new root  
+            return currentRight;
+        }
+
+        // Get Balance factor of node N  
+        int getBalance(Node<T> node)
+        {
+            if (node == null)
+            {
+                return 0;
+            }
+            return getFactor(node.Left) - getFactor(node.Right);
+        }
+
+        //INSERT AVL
+        public Node<T> InsertAVL(Node<T> nodeF, T value)
+        {
+            //INSERT
+            if (nodeF == null) {
+                Count++;
+                return (new Node<T>(value));                
+            }
+                
+            if ((int)Comparer.DynamicInvoke(nodeF.Value, value) == 1)
+            {
+                nodeF.Left = InsertAVL(nodeF.Left, value);
+            }
+            else
+            {
+                nodeF.Right = InsertAVL(nodeF.Right, value);
+            }
+
+            //BALANCING
+
+            nodeF.Factor = 1 + maxFactor(getFactor(nodeF.Left), getFactor(nodeF.Right));
+
+            /* 3. Get the balance factor of this ancestor  
+                node to check whether this node became  
+                unbalanced */
+            int balance = getBalance(nodeF);
+
+            // If this node becomes unbalanced, then there  
+            // are 4 cases Left Left Case  
+            if (balance > 1 && (int)Comparer.DynamicInvoke(value, nodeF.Left.Value) == -1)
+            {
+                return s_Right(nodeF);
+            }
+                
+            
+            // Right Right Case  
+            if (balance < -1 && (int)Comparer.DynamicInvoke(value, nodeF.Right.Value) == 1)
+            {
+                return s_Left(nodeF);
+            }
+               
+
+            // Left Right Case  
+            if (balance > 1 && (int)Comparer.DynamicInvoke(value, nodeF.Left.Value) == 1)
+            {
+                nodeF.Left = s_Left(nodeF.Left);
+                return s_Right(nodeF);
+            }
+
+            // Right Left Case  
+            if (balance < -1 && (int)Comparer.DynamicInvoke(value, nodeF.Right.Value) == -1)
+            {
+                nodeF.Right = s_Right(nodeF.Right);
+                return s_Left(nodeF);
+            }
+
+            /* return the (unchanged) node pointer */
+            return nodeF;
+        }
+
 
         //INSERT
         public void Insert(T value)
@@ -90,6 +192,35 @@ namespace NoLinealStructures.Structures
                 {
                     Insert(nodeF.Right, node);
                 }
+            }
+        }
+
+        //FIND
+        public int Find(T value)
+        {
+            return Find(Root, value);
+        }
+
+        private int Find(Node<T> nodeF, T value)
+        {
+            Node<T> node = new Node<T>(value);
+
+            if (nodeF == null)
+            {
+                return 0;
+            }
+            else if ((int)Comparer.DynamicInvoke(nodeF.Value, node.Value) == 0)
+            {
+                node.Value = nodeF.Value;
+                return (int)Converter.DynamicInvoke(node.Value);
+            }
+            else if ((int)Comparer.DynamicInvoke(nodeF.Value, node.Value) == 1)
+            {
+                return Find(nodeF.Left, value);
+            }
+            else
+            {
+                return Find(nodeF.Right, value);
             }
         }
 
@@ -265,7 +396,5 @@ namespace NoLinealStructures.Structures
         }
 
         
-
-       
     }
 }

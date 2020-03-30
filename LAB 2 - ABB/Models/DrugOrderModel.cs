@@ -18,14 +18,7 @@ namespace LAB_2___ABB.Models
         public string Producer { get; set; }
         public double Price { get; set; }
         public int Stock { get; set; }
-
         public double Total { get; set; }
-
-        //INSERT DRUGS ON LIST
-        public static void Add(DrugOrderModel drug)
-        {
-            Storage.Instance.drugList.Add(drug);
-        }
 
     }
 }

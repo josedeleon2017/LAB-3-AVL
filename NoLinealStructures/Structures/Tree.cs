@@ -27,66 +27,7 @@ namespace NoLinealStructures.Structures
                 return 0;
             }
             return node.Factor;
-        }
-
-        int maxFactor(int leftFactor, int rightFactor)
-        {
-            if (leftFactor > rightFactor)
-            {
-                return leftFactor;
-            }
-            else
-            {
-                return rightFactor;
-            }
-        }
-
-        Node<T> s_Right(Node<T> nodeF)
-        {
-            Node<T> currentLeft = nodeF.Left;
-            Node<T> treeRight = currentLeft.Right;
-
-            // Perform rotation  
-            currentLeft.Right = nodeF;
-            nodeF.Left = treeRight;
-
-            // Update heights  
-            nodeF.Factor = maxFactor(getFactor(nodeF.Left), getFactor(nodeF.Right)) + 1;
-            currentLeft.Factor = maxFactor(getFactor(currentLeft.Left), getFactor(currentLeft.Right)) + 1;
-
-            // Return new root  
-            return currentLeft;
-        }
-
-        // A utility function to left 
-        // rotate subtree rooted with x  
-        // See the diagram given above.  
-        Node<T> s_Left(Node<T> nodeF)
-        {
-            Node<T> currentRight = nodeF.Right;
-            Node<T> treeLeft = currentRight.Left;
-
-            // Perform rotation  
-            currentRight.Left = nodeF;
-            nodeF.Right = treeLeft;
-
-            // Update heights  
-            nodeF.Factor = maxFactor(getFactor(nodeF.Left), getFactor(nodeF.Right)) + 1;
-            currentRight.Factor = maxFactor(getFactor(currentRight.Left), getFactor(currentRight.Right)) + 1;
-
-            // Return new root  
-            return currentRight;
-        }
-
-        // Get Balance factor of node N  
-        int getBalance(Node<T> node)
-        {
-            if (node == null)
-            {
-                return 0;
-            }
-            return getFactor(node.Left) - getFactor(node.Right);
-        }
+        }      
 
         //INSERT AVL
         public Node<T> InsertAVL(Node<T> nodeF, T value)
@@ -110,44 +51,81 @@ namespace NoLinealStructures.Structures
 
             nodeF.Factor = 1 + maxFactor(getFactor(nodeF.Left), getFactor(nodeF.Right));
 
-            /* 3. Get the balance factor of this ancestor  
-                node to check whether this node became  
-                unbalanced */
             int balance = getBalance(nodeF);
-
-            // If this node becomes unbalanced, then there  
-            // are 4 cases Left Left Case  
+ 
             if (balance > 1 && (int)Comparer.DynamicInvoke(value, nodeF.Left.Value) == -1)
             {
                 return s_Right(nodeF);
             }
-                
-            
-            // Right Right Case  
+                 
             if (balance < -1 && (int)Comparer.DynamicInvoke(value, nodeF.Right.Value) == 1)
             {
                 return s_Left(nodeF);
             }
                
-
-            // Left Right Case  
             if (balance > 1 && (int)Comparer.DynamicInvoke(value, nodeF.Left.Value) == 1)
             {
                 nodeF.Left = s_Left(nodeF.Left);
                 return s_Right(nodeF);
             }
 
-            // Right Left Case  
             if (balance < -1 && (int)Comparer.DynamicInvoke(value, nodeF.Right.Value) == -1)
             {
                 nodeF.Right = s_Right(nodeF.Right);
                 return s_Left(nodeF);
             }
 
-            /* return the (unchanged) node pointer */
             return nodeF;
         }
 
+        Node<T> s_Right(Node<T> nodeF)
+        {
+            Node<T> currentLeft = nodeF.Left;
+            Node<T> treeRight = currentLeft.Right;
+
+            currentLeft.Right = nodeF;
+            nodeF.Left = treeRight;
+
+            nodeF.Factor = maxFactor(getFactor(nodeF.Left), getFactor(nodeF.Right)) + 1;
+            currentLeft.Factor = maxFactor(getFactor(currentLeft.Left), getFactor(currentLeft.Right)) + 1;
+
+            return currentLeft;
+        }
+
+        Node<T> s_Left(Node<T> nodeF)
+        {
+            Node<T> currentRight = nodeF.Right;
+            Node<T> treeLeft = currentRight.Left;
+
+            currentRight.Left = nodeF;
+            nodeF.Right = treeLeft;
+
+            nodeF.Factor = maxFactor(getFactor(nodeF.Left), getFactor(nodeF.Right)) + 1;
+            currentRight.Factor = maxFactor(getFactor(currentRight.Left), getFactor(currentRight.Right)) + 1;
+
+            return currentRight;
+        }
+
+        int maxFactor(int leftFactor, int rightFactor)
+        {
+            if (leftFactor > rightFactor)
+            {
+                return leftFactor;
+            }
+            else
+            {
+                return rightFactor;
+            }
+        }
+
+        int getBalance(Node<T> node)
+        {
+            if (node == null)
+            {
+                return 0;
+            }
+            return getFactor(node.Left) - getFactor(node.Right);
+        }
 
         //INSERT
         public void Insert(T value)

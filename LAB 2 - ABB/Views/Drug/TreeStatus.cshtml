@@ -1,9 +1,14 @@
-﻿@model IEnumerable<LAB_2___ABB.Models.DrugModel>
+﻿
+
+@model PagedList.IPagedList<LAB_2___ABB.Models.DrugModel>
+@using PagedList.Mvc;
 
 @{
     ViewBag.Title = "TreeStatus";
 }
 
+
+<link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
 
 <!DOCTYPE html>
 
@@ -46,13 +51,14 @@
         </tr>
     </table>
     <br />
+
     <table class="table">
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.Id)
+                Id
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Name)
+                Name
             </th>
         </tr>
 
@@ -69,6 +75,10 @@
         }
 
     </table>
+
+    Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
+    @Html.PagedListPager(Model, page => Url.Action("TreeStatus", new { page }))
+
 
 </body>
 </html>

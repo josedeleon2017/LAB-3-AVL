@@ -7,6 +7,7 @@ using LAB_2___ABB.Models;
 using System.IO;
 using System.Text.RegularExpressions;
 using LAB_2___ABB.Helpers;
+using PagedList;
 
 namespace LAB_2___ABB.Controllers
 {
@@ -91,9 +92,12 @@ namespace LAB_2___ABB.Controllers
             }
         }
 
-        public ActionResult TreeStatus()
-        {
-            return View(Storage.Instance.drugStatusList);
+        public ViewResult TreeStatus(int ?page)
+        {          
+            int pageSize = 10;
+            int pageNumber = (page ?? 1);
+
+            return View(Storage.Instance.drugStatusList.ToPagedList<DrugModel>(pageNumber, pageSize));
         }
 
         [HttpPost]

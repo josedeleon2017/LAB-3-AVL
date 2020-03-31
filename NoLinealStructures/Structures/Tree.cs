@@ -78,6 +78,90 @@ namespace NoLinealStructures.Structures
             return nodeF;
         }
 
+        //DELETE AVL
+        public Node<T> DeleteAVL(Node<T> nodeF, T value)
+        {
+            //DELETE
+            if (nodeF == null)
+            {
+                return null;
+            }
+
+            if ((int)Comparer.DynamicInvoke(value, nodeF.Value) == -1)
+            {
+                nodeF.Left = DeleteAVL(nodeF.Left, value);
+            } 
+
+            else if ((int)Comparer.DynamicInvoke(value, nodeF.Value) == 1)
+            {
+                nodeF.Right = DeleteAVL(nodeF.Right, value);
+            }
+
+            else
+            {
+                if ((nodeF.Left == null) || (nodeF.Right == null))
+                {
+                    Node<T> temp = null;
+                    if (nodeF.Left == null && nodeF.Right != null)
+                    {
+                        temp = nodeF.Right;
+                    }
+                    else if(nodeF.Right == null && nodeF.Left != null)
+                    {
+                        temp = nodeF.Left;
+                    }
+                    if (temp == null)
+                    {
+                        temp = nodeF;
+                        nodeF = null;
+                    }
+                    else
+                    {
+                        nodeF = temp;
+                    }
+                }
+                else
+                {
+                    Node<T> temp = Replace(nodeF.Right);
+                    nodeF.Value = temp.Value;
+                    nodeF.Right = DeleteAVL(nodeF.Right, temp.Value);
+                }
+            } 
+            if (nodeF == null)
+            {
+                return nodeF;
+            }
+
+            //BALANCING
+            nodeF.Factor = 1 + maxFactor(getFactor(nodeF.Left), getFactor(nodeF.Right));  
+            int balance = getBalance(nodeF);
+
+            if (balance > 1 && getBalance(nodeF.Left) >= 0)
+            {
+                return s_Right(nodeF);
+            }
+
+            if (balance > 1 && getBalance(nodeF.Left) < 0)
+            {
+                nodeF.Left = s_Left(nodeF.Left);
+                return s_Right(nodeF);
+            }
+
+            if (balance < -1 && getBalance(nodeF.Right) <= 0)
+            {
+                return s_Left(nodeF);
+            }
+ 
+            if (balance < -1 && getBalance(nodeF.Right) > 0)
+            {
+                nodeF.Right = s_Right(nodeF.Right);
+                return s_Left(nodeF);
+            }
+            return nodeF;
+        }
+
+
+
         Node<T> s_Right(Node<T> nodeF)
         {
             Node<T> currentLeft = nodeF.Left;

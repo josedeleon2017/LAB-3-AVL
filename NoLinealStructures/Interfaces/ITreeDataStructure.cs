@@ -13,5 +13,6 @@ namespace NoLinealStructures.Interfaces
         int Find(T value);
         void Delete(T value);
         Node<T> InsertAVL(Node<T> node, T value);
+        Node<T> DeleteAVL(Node<T> node, T value);
     }
 }

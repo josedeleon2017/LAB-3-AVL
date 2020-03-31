@@ -36,7 +36,7 @@ namespace LAB_2___ABB.Models
         {        
               DrugModel drugToDelete = new DrugModel();
               drugToDelete.Name = drugName;
-              Storage.Instance.drugTree.Delete(drugToDelete);
+              Storage.Instance.drugTree.DeleteAVL(Storage.Instance.drugTree.Root, drugToDelete);
         }
 
         //TRAVERSALS
